@@ -41,6 +41,7 @@
  /* Apart from what is given below, GRAMMAR can also be a program module
     (PROGRAM_MODULE) */
 GRAMMAR: { yyerror( "Empty input source is not valid!" ); YYERROR; }
+   %empty
 	| error
    | PROGRAM_MODULE
 	  /* start here */
@@ -59,7 +60,7 @@ PROGRAM_MODULE:
 /* IMPORTS */
 /* A possibly empty sequence of imports (IMPORT) */
 IMPORTS:
-   /* empty */
+   %empty
    | IMPORTS IMPORT
 ;
 
@@ -95,7 +96,7 @@ BLOCK:
 /* DECLARATIONS */
 /* Possibly empty sequence of declarations (DECLARATION) */
 DECLARATIONS:
-   /* empty */
+   %empty
    | DECLARATIONS DECLARATION
 ;
 
@@ -114,7 +115,7 @@ DECLARATION:
 /* Possibly empty sequence of declarations of constants (CONST_DECL), each
    followed by a semicolon */
 CONST_DECLS:
-    /* empty */
+    %empty
     | CONST_DECLS CONST_DECL ';'
 ;
 
@@ -141,7 +142,7 @@ CONST_FACTOR:
 /* Possibly empty sequence of declarations of variables (VAR_DECL), each
    followed by a semicolon */
 VAR_DECLS:
-    /* empty */
+    %empty
     | VAR_DECLS VAR_DECL ';'
 ;
 
@@ -150,7 +151,7 @@ VAR_DECLS:
    (TYPE_SPEC) */
 VAR_DECL:
     IDENT_LIST ':' TYPE_SPEC {
-        found("VAR_DECL", $1);
+        found("VAR_DECL", "");
     }
 ;
 
@@ -185,7 +186,7 @@ DIMEN_SPEC:
 /* FIELDS */
 /* Possibly empty sequence of fields (FIELD), followed each by a semicolon */
 FIELDS:
-    /* empty */
+    %empty
     | FIELDS FIELD ';'
 ;
 
@@ -216,7 +217,7 @@ PROC_HEAD:
 /* OPT_FORMAL_PARAMS */
 /* empty or formal parameters (FORMAL_PARAMS) */
 OPT_FORMAL_PARAMS:
-   /* empty */
+   %empty
    | FORMAL_PARAMS 
 ;
 
@@ -248,14 +249,14 @@ FP_SECTION:
 /* OPT_VAR */
 /* empty or keyword VAR (KW_VAR) */
 OPT_VAR:
-    /* empty */
+    %empty
     | KW_VAR
 ;
 
 /* OPT_RET_TYPE */
 /* empty or colon and qualified identifier (QUALIDENT) */
 OPT_RET_TYPE:
-    /* empty */
+    %empty
     | ':' QUALIDENT
 ;
 
@@ -308,7 +309,7 @@ ASSIGNMENT:
    and qualifier,
    or a dot, identifier, and qualifier */
 QUALIF:
-   /* empty */
+   %empty
    | '[' SUBSCRIPTS ']' QUALIF
    | '.' IDENT QUALIF
 ;
@@ -435,14 +436,14 @@ IF_STATEMENT:
 /* Possibly empty sequence of sequences of the form:
    keyword ELSIF, expression, keyword THEN, and statements */
 ELSIFS:
-    /* empty */
+    %empty
     | ELSIFS KW_ELSIF EXPR KW_THEN STATEMENTS
 ;
 
 /* ELSE_PART */
 /* Either empty or keyword ELSE followed by statements */
 ELSE_PART:
-    /* empty */
+    %empty
     | KW_ELSE STATEMENTS
 ;
 
@@ -508,7 +509,7 @@ CASE_LABEL:
 
 int main( void )
 { 
-	printf( "First and last name\n" );
+	printf( "Olaf Jedliński\n" );
 	printf( "yytext              Token type      Token value as string\n\n" );
 	yyparse();
 	return( 0 ); // OK

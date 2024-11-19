@@ -81,7 +81,7 @@ OF     { return process_token(yytext, "KW_OF", "", KW_OF); }
 ARRAY  { return process_token(yytext, "KW_ARRAY", "", KW_ARRAY); }
 RECORD { return process_token(yytext, "KW_RECORD", "", KW_RECORD); }
 DOWNTO { return process_token(yytext, "KW_DOWNTO", "", KW_DOWNTO); }
-
+PROCEDURE { return process_token(yytext, "KW_PROCEDURE", "", KW_PROCEDURE); }
  /* identyfikatory */
 [a-zA-Z][a-zA-Z0-9_]* { return process_token(yytext, "IDENT", yytext, IDENT); }
 
